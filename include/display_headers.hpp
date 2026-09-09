@@ -10,4 +10,5 @@ extern uint16_t *draw_buf;
 extern BB_SPI_LCD lcd;
 extern void disp_flush(lv_display_t*, const lv_area_t*, uint8_t*);
 extern void lvgl_init(void);
+extern uint16_t my_tick(void);
 #endif

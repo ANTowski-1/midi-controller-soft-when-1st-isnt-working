@@ -9,7 +9,7 @@ uint32_t my_tick(void)
 }
 uint16_t w = 320;
 uint16_t h = 240;
-uint16_t iSize = (w * h / 4) * sizeof(uint16_t);
+uint16_t iSize = w * h * 2;
 uint16_t *dma_buf = new uint16_t[iSize];
 BB_SPI_LCD lcd;
 #define DRAW_BUF_SIZE(w, h) ((w * h) / 10 * sizeof(uint16_t))
@@ -19,7 +19,7 @@ void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map){
     uint32_t w = lv_area_get_width(area);
     uint32_t h = lv_area_get_height(area);
     uint32_t *s = (uint32_t *)px_map;
-    lcd.setAddrWindow(area->x1,  area->y1, w, h);
+    lcd.setAddrWindow(area->x1,  area->y1, h, w);
     for (int y=0; y<h; y++) {
         for (int x=0; x<w; x++) {
             dma_buf[x] = __builtin_bswap16(s[x]);
@@ -32,9 +32,10 @@ void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map){
 }
 
 void lvgl_init(void) {
+    SPI.begin(12, 13, 11);
     lcd.begin(LCD_ST7789, FLAGS_INVERT, 40000000, 14, 17, 18, -1, 13, 11, 12);
     delay(100);
-    lcd.setRotation(90);
+    lcd.setRotation(270);
     /*lcd.fillScreen(TFT_BLACK);
     lcd.setTextColor(TFT_GREEN, TFT_BLACK);
     lcd.setFont(FONT_12x16);

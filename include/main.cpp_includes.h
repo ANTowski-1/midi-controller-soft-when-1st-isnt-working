@@ -21,7 +21,6 @@ Licensed under GPL-3.0.*/
 #include <lvgl.h>
 #include <lv_conf.h>
 #include <bb_spi_lcd.h>
-#include "display_headers.hpp"
 #include <actions.h>
 #include <fonts.h>
 #include <images.h>
@@ -29,3 +28,4 @@ Licensed under GPL-3.0.*/
 #include <structs.h>
 #include <styles.h>
 #include <vars.h>
+#include <display_headers.hpp>
