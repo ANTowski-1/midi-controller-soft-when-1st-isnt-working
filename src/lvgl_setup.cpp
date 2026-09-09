@@ -18,17 +18,15 @@ uint16_t *draw_buf;
 void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map){
     uint32_t w = lv_area_get_width(area);
     uint32_t h = lv_area_get_height(area);
-    uint16_t *px_map_16 = (uint16_t *)px_map;
-
-    static uint16_t *dma_buf = nullptr;
-    if (!dma_buf) {
-        dma_buf = (uint16_t *)heap_caps_malloc(w * h * sizeof(uint16_t), MALLOC_CAP_DMA);
-    }
-
-    memcpy(dma_buf, px_map_16, w * h * sizeof(uint16_t));
-
+    uint32_t *s = (uint32_t *)px_map;
     lcd.setAddrWindow(area->x1,  area->y1, w, h);
-    lcd.pushPixels(dma_buf, w, DRAW_TO_LCD | DRAW_WITH_DMA);
+    for (int y=0; y<h; y++) {
+        for (int x=0; x<w; x++) {
+            dma_buf[x] = __builtin_bswap16(s[x]);
+        }
+        lcd.pushPixels(dma_buf, w, DRAW_TO_LCD);
+        s += w;
+    }
 
     lv_display_flush_ready(disp);
 }
@@ -36,7 +34,7 @@ void disp_flush(lv_display_t *disp, const lv_area_t *area, uint8_t *px_map){
 void lvgl_init(void) {
     lcd.begin(LCD_ST7789, FLAGS_INVERT, 40000000, 14, 17, 18, -1, 13, 11, 12);
     delay(100);
-    lcd.setRotation(0);
+    lcd.setRotation(90);
     /*lcd.fillScreen(TFT_BLACK);
     lcd.setTextColor(TFT_GREEN, TFT_BLACK);
     lcd.setFont(FONT_12x16);
@@ -55,9 +53,9 @@ void lvgl_init(void) {
     lv_display_t *disp;
     iSize = LV_DRAW_BUF_SIZE(w, h, LV_COLOR_FORMAT_RGB565);
     disp = lv_display_create(w,h);
-    draw_buf = (uint16_t *)heap_caps_malloc(iSize, MALLOC_CAP_DMA);
+    draw_buf = (uint16_t *)malloc(iSize);
     lv_display_set_flush_cb(disp, disp_flush);
-    lv_display_set_buffers(disp, draw_buf, NULL, iSize, LV_DISPLAY_RENDER_MODE_FULL);
+    lv_display_set_buffers(disp, draw_buf, NULL, iSize, LV_DISPLAY_RENDER_MODE_PARTIAL);
     ui_init();
     Serial.println("LVGL library has been initialised");
 }
