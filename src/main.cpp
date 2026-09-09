@@ -7,6 +7,7 @@
 
 bool inConfigMode = false;
 int menuSelection = 0;
+int lastDispUpdate{5};
 
 // OutputBank configBank(1);
 
@@ -22,6 +23,11 @@ void setup() {
 
 void loop() {
     Control_Surface.loop();
+
+    if (lastDispUpdate - millis() >= 5) {
+        lv_timer_handler();
+        lastDispUpdate = millis();
+    }
 
     // if (digitalRead(configBtn) == LOW) {
     //     inConfigMode = !inConfigMode;
