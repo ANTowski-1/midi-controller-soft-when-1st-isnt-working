@@ -20,7 +20,6 @@ Licensed under GPL-3.0.*/
 // Display Include
 #include <lvgl.h>
 #include <lv_conf.h>
-#include <bb_spi_lcd.h>
 #include <actions.h>
 #include <fonts.h>
 #include <images.h>

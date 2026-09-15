@@ -1,5 +1,4 @@
 #include <Arduino.h>
-#include <bb_spi_lcd.h>
 #include <Control_Surface.h>
 #include <main.cpp_includes.h>
 #define configBtn 19
