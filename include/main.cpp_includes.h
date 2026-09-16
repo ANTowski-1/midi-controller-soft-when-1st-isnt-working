@@ -18,13 +18,5 @@ Licensed under GPL-3.0.*/
 #include "Control_surface_setup.h"
 
 // Display Include
-#include <lvgl.h>
-#include <lv_conf.h>
-#include <actions.h>
-#include <fonts.h>
-#include <images.h>
-#include <screens.h>
-#include <structs.h>
-#include <styles.h>
-#include <vars.h>
-#include <display_headers.hpp>
+#include <bb_spi_lcd.h>
+#include <display.h>
