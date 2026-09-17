@@ -6,6 +6,9 @@
 BB_SPI_LCD lcd;
 
 int lastFadVal[6];
+std::string configOptIn[4] = {Control Surfuce, USB, BLE, Serial}
+std::string configOptOut[4] = {Control Surfuce, USB, BLE, Serial}
+
 
 void tft_init(){
     SPI.begin(12,13,11);
@@ -29,11 +32,13 @@ void tft_write_txt(int num) {
 void muteDisplay(int btnNum, bool muted) {
     int muteBtnPosition = 15 + 50 * btnNum;
     if (muted == true){
-        lcd.fillRect(int(muteBtnPosition), 190, 40, 40, TFT_RED);
-        //lcd.drawString("Mute", position, 210, FONT_6x8);
+        lcd.setTextColor(TFT_GREEN, TFT_RED);
+	lcd.fillRect(int(muteBtnPosition), 190, 40, 40, TFT_RED);
+        lcd.drawString("Mute", position, 210, FONT_6x8);
     } else if (muted == false) {
+	lcd.setTextColor(TFT_GREEN, TFT_GREY);
         lcd.fillRect(int(muteBtnPosition), 190, 40, 40, TFT_GREY);
-        //lcd.drawString("Mute", position, 210, FONT_6x8);
+        lcd.drawString("Mute", position, 210, FONT_6x8);
     }
 }
 
@@ -54,7 +59,8 @@ void fadersDisplay(int fadNum, int fadPos) {
 }
 
 void settings(){
-
+	lcdClear();
+	lcd.
 }
 
 void lcdClear(){
