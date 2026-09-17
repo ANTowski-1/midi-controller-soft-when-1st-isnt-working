@@ -35,7 +35,6 @@ void loop() {
     Control_Surface.loop();
     if (millis() - lastDispUpdate >= 100) {
         ScreenUpdated = false;
-        lcdClear();
         while (ScreenUpdated == false) {
             if (lastBtnPotUpdate <= 6) {
                 currentBtnPotUpdate++;
