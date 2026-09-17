@@ -5,6 +5,8 @@
 #include <string.h>
 BB_SPI_LCD lcd;
 
+int lastFadVal[6];
+
 void tft_init(){
     SPI.begin(12,13,11);
     lcd.begin(LCD_ST7789, FLAGS_INVERT, 40000000, 14, 17, 18, -1, 13, 11, 12);
@@ -36,14 +38,19 @@ void muteDisplay(int btnNum, bool muted) {
 }
 
 void fadersDisplay(int fadNum, int fadPos) {
+    if (lastFadVal[fadNum] == fadPos) {
+        return;
+    }
     int fadPosition = 30 + 50 * fadNum;
     int fadBarPosition = 15 + 50 * fadNum;
     int fadBarVerticalPosition = 70 + (127 - fadPos) * 90/127;
+    lcd.fillRect(int(fadBarPosition), 70, 40, 120);
     lcd.fillRect(int(fadPosition), 70, 10, 100, TFT_GREY);
     lcd.fillRect(int(fadBarPosition), fadBarVerticalPosition, 40, 10, TFT_GREY);
     lcd.setFont(FONT_8x8);
     lcd.setCursor(fadPosition, 175);
     lcd.print(int(fadPos));
+    lastFadVal[fadNum] = fadPos;
 }
 
 void settings(){
