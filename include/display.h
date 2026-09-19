@@ -10,4 +10,6 @@ extern void tft_write_txt(int num);
 extern void tft_init();
 extern void muteDisplay(int btnNum, bool muted);
 extern void fadersDisplay(int fadNum, int fadPos);
+extern void fadBtnClear(int fadBtnNum);
 extern void lcdClear();
+extern void settings();

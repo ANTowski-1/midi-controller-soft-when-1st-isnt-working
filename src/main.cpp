@@ -11,8 +11,11 @@ int lastDispUpdate = 0;
 int lastBtnPotUpdate = 0;
 int currentBtnPotUpdate = 0;
 bool currentMBtnState = false;
+bool lastMBtnState[6] = {0,0,0,0,0,0};
 int currentFaderPosition = 0;
+int lastFadVal[6] = {0,0,0,0,0,0};
 bool ScreenUpdated = false;
+int i{0};
 
 OutputBank configBank(1);
 
@@ -27,6 +30,12 @@ void setup() {
     configBank.select(0);
 
     tft_init();
+    // while (i < 6){
+    //     muteDisplay(i, false);
+    //     fadersDisplay(i, 0);
+    //     lastFadVal[i] = 0;
+    //     lastMBtnState[i] = false;
+    // }
     lastDispUpdate = millis();
     Serial.println("Setup complete");
 }
@@ -38,19 +47,22 @@ void loop() {
         while (ScreenUpdated == false) {
             if (lastBtnPotUpdate <= 6) {
                 currentBtnPotUpdate++;
-                
-                //Mute Button Update
                 currentMBtnState = muteButtons[currentBtnPotUpdate - 1].getState();
-                muteDisplay((currentBtnPotUpdate -1), currentMBtnState);
-                
-                //Fader Update
                 currentFaderPosition = pots[currentBtnPotUpdate - 1].getValue();
-                fadersDisplay((currentBtnPotUpdate -1), currentFaderPosition);
+                if (lastFadVal[currentBtnPotUpdate -1] != currentFaderPosition 
+                    || lastMBtnState[currentBtnPotUpdate -1] != currentMBtnState) {
+                    fadBtnClear(currentBtnPotUpdate -1);
+                    muteDisplay((currentBtnPotUpdate -1), currentMBtnState);
+                    fadersDisplay((currentBtnPotUpdate -1), currentFaderPosition);
+                    lastFadVal[currentBtnPotUpdate -1] = currentFaderPosition;
+                    lastMBtnState[currentBtnPotUpdate -1] = currentMBtnState;
+                }
                 lastBtnPotUpdate = currentBtnPotUpdate;
             } else if (lastBtnPotUpdate > 6) {
                 lastBtnPotUpdate = 0;
                 currentBtnPotUpdate = 0;
                 ScreenUpdated = true;
+                lastDispUpdate = millis();
             }
         }
     }
