@@ -10,17 +10,19 @@ https://github.com/ANTowski-1/MIDI-Controller-Software/tree/main
 Copyright 2026, Antoni Kołaczek
 Licensed under GPL-3.0.*/
 
-
+// Control Surface Includes
+#include <Control_Surface.h>
+#include <Arduino_Helpers.h>
+#include <AH/Hardware/ExtendedInputOutput/MCP23017.hpp>
 
 // MCP connection data
-
 using WireType = decltype(Wire);
 
-MCP23017<WireType> mcp {
+MCP23017<WireType> mcp2 {
     Wire,
     0x25,
 };
-MCP23017<WireType> mcp2 {
+MCP23017<WireType> mcp {
     Wire,
     0x24,
 };
@@ -93,7 +95,7 @@ CCPotentiometer pots[] {
 };
 
 
-CCAbsoluteEncoder enc2[] {
+CCAbsoluteEncoder enc[] {
     {{40, 10}, {108, Channel_1}, 4},
     {{9, 8}, {109, Channel_1}, 4},
 };
