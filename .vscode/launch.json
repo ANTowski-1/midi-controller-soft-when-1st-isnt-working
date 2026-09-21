@@ -12,8 +12,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug",
-            "executable": "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/build/esp32-s3-devkitc1-n8r2/firmware.elf",
-            "projectEnvName": "esp32-s3-devkitc1-n8r2",
+            "executable": "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/build/esp32-s3-devkitc1-n4r8/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitc1-n4r8",
             "toolchainBinDir": "/home/anton/.platformio/packages/toolchain-xtensa-esp-elf/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "preLaunchTask": {
@@ -25,8 +25,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (skip Pre-Debug)",
-            "executable": "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/build/esp32-s3-devkitc1-n8r2/firmware.elf",
-            "projectEnvName": "esp32-s3-devkitc1-n8r2",
+            "executable": "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/build/esp32-s3-devkitc1-n4r8/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitc1-n4r8",
             "toolchainBinDir": "/home/anton/.platformio/packages/toolchain-xtensa-esp-elf/bin",
             "internalConsoleOptions": "openOnSessionStart"
         },
@@ -34,8 +34,8 @@
             "type": "platformio-debug",
             "request": "launch",
             "name": "PIO Debug (without uploading)",
-            "executable": "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/build/esp32-s3-devkitc1-n8r2/firmware.elf",
-            "projectEnvName": "esp32-s3-devkitc1-n8r2",
+            "executable": "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/build/esp32-s3-devkitc1-n4r8/firmware.elf",
+            "projectEnvName": "esp32-s3-devkitc1-n4r8",
             "toolchainBinDir": "/home/anton/.platformio/packages/toolchain-xtensa-esp-elf/bin",
             "internalConsoleOptions": "openOnSessionStart",
             "loadMode": "manual"
