@@ -1,5 +1,5 @@
 #include <SPI.h>
-#include <display.h>
+#include <display_and_conf.h>
 #include <bb_spi_lcd.h>
 #include <string>
 #include <iostream>
@@ -249,6 +249,7 @@ void menuTab(int tabNum){
                     lcd.fillRect(45, yPosition, 10, 10, LCD_2TXT);
                     lastChosenOption = chosenOption;
                 } else if (digitalRead(BTN_ENC2) == 0){
+                    // todo: add callback to preferences.h (functions in config.cpp)
                     return;
                 }   // If
                 lastEncCheck = millis();

@@ -16,4 +16,7 @@ Licensed under GPL-3.0.*/
 
 // Display Include
 #include <bb_spi_lcd.h>
-#include <display.h>
+#include <display_and_conf.h>
+
+// Config
+#include <Preferences.h>

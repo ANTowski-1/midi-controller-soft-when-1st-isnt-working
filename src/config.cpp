@@ -1,4 +1,8 @@
 #include <Control_Surface.h>
+#include <Preferences.h>
+
+
+Preferences config;
 
 // Lib setup
 extern USBMIDI_Interface USB_MIDI;
@@ -16,10 +20,35 @@ struct transportCfg {
     uint8_t sink2;
 };
 
-TrueMIDI_SinkSource* TransInterfaces[] = {
+TrueMIDI_SinkSource* transportInterfaces[] = {
     &Control_Surface,
     &USB_MIDI,
     &BLE_MIDI,
     &SERIAL_MIDI,
     &DEBUG_MIDI,
 };
+
+transportCfg loadCfg() {
+    config.begin("midiTransport", true);
+    transportCfg cfg;
+    cfg.source1 = config.getUInt("source1", 0); // 1st source, default to Control Surface
+    cfg.source2 = config.getUInt("source2", 0); // 2nd source, default to Control Surface
+    cfg.sink1 = config.getUInt("sink1", 1); // 1st sink, default to USB
+    cfg.sink2 = config.getUInt("sink2", 3); // 2nd sink, default to BLE
+    config.end();
+    return cfg;
+}
+
+void saveCfg(transportCfg cfg) {
+    config.begin("midiTransport", false);
+    config.putUInt("source1", cfg.source1);
+    config.putUInt("source2", cfg.source2);
+    config.putUInt("sink1", cfg.sink1);
+    config.putUInt("sink2", cfg.sink2);
+    config.end(); 
+}
+
+void applyCfg(transportCfg cfg) {
+    *transportInterfaces[cfg.source1] | pipes | *transportInterfaces[cfg.sink1];
+    *transportInterfaces[cfg.source2] | pipes | *transportInterfaces[cfg.sink2];
+}

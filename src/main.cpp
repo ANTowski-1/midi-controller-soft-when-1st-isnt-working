@@ -2,6 +2,8 @@
 #include <Control_Surface.h>
 #include <main.cpp_includes.h>
 
+extern Preferences config;
+
 bool inConfigMode = false;
 int menuSelection = 0;
 

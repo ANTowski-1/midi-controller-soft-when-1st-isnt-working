@@ -5,6 +5,7 @@
 #define TFT_MOSI 11
 #define TFT_SCK 12
 
+// Display Functions
 extern void tft_init();
 extern void muteDisplay(int btnNum, bool muted);
 extern void fadersDisplay(int fadNum, int fadPos);
@@ -13,3 +14,11 @@ extern void lcdClear();
 extern void settings();
 extern void encDisplay(int encNum, int encVal);
 extern void menuTab(int tabNum);
+
+// Config Vars
+struct transportCfg;
+
+// Config Functions
+extern transportCfg loadCfg();
+extern void saveCfg(transportCfg cfg);
+extern void applyCfg(transportCfg cfg);
