@@ -249,6 +249,7 @@ void menuTab(int tabNum){
                     lcd.fillRect(45, yPosition, 10, 10, LCD_2TXT);
                     lastChosenOption = chosenOption;
                 } else if (digitalRead(BTN_ENC2) == 0){
+		    saveConfByTab(tabNum, chosenOption);
                     // todo: add callback to preferences.h (functions in config.cpp)
                     return;
                 }   // If

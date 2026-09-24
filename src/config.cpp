@@ -28,7 +28,7 @@ TrueMIDI_SinkSource* transportInterfaces[] = {
     &DEBUG_MIDI,
 };
 
-transportCfg loadCfg() {
+void loadCfg() {
     config.begin("midiTransport", true);
     transportCfg cfg;
     cfg.source1 = config.getUInt("source1", 0); // 1st source, default to Control Surface
@@ -36,7 +36,6 @@ transportCfg loadCfg() {
     cfg.sink1 = config.getUInt("sink1", 1); // 1st sink, default to USB
     cfg.sink2 = config.getUInt("sink2", 3); // 2nd sink, default to BLE
     config.end();
-    return cfg;
 }
 
 void saveCfg(transportCfg cfg) {
@@ -51,4 +50,18 @@ void saveCfg(transportCfg cfg) {
 void applyCfg(transportCfg cfg) {
     *transportInterfaces[cfg.source1] | pipes | *transportInterfaces[cfg.sink1];
     *transportInterfaces[cfg.source2] | pipes | *transportInterfaces[cfg.sink2];
+}
+
+void saveConfByTab(int tabNum, int chosenOption) {
+    transportCfg cfg;
+    if (tabNum == 0) {
+	cfg.source1 = chosenOption;
+    } else if (tabNum == 1) {
+	cfg.sink1 = chosenOption;
+    } else if (tabNum == 2) {
+	cfg.source2 = chosenOption;
+    } else if (tabNum == 3) {
+	cfg.sink1 = chosenOption;
+    }
+    saveCfg(cfg);
 }
