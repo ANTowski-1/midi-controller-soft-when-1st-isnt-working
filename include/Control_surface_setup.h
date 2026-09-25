@@ -62,7 +62,7 @@ USBMIDI_Interface USB_MIDI;
 HardwareSerialMIDI_Interface SERIAL_MIDI(Serial1, MIDI_BAUD);
 // ?HardwareSerialDebugMIDI_Interface DEBUG_MIDI(Serial, 9600);
 USBDebugMIDI_Interface DEBUG_MIDI;
-BluetoothMIDI_Interface BLE_MIDI;
+// BluetoothMIDI_Interface BLE_MIDI;
 
 // Pipes for connecting them
 BidirectionalMIDI_PipeFactory<2> pipes;

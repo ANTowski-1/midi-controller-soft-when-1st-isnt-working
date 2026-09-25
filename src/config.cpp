@@ -9,7 +9,7 @@ extern USBMIDI_Interface USB_MIDI;
 extern HardwareSerialMIDI_Interface SERIAL_MIDI;
 // ?HardwareSerialDebugMIDI_Interface DEBUG_MIDI(Serial, 9600);
 extern USBDebugMIDI_Interface DEBUG_MIDI;
-extern BluetoothMIDI_Interface BLE_MIDI;
+// extern BluetoothMIDI_Interface BLE_MIDI;
 
 extern BidirectionalMIDI_PipeFactory<2> pipes;
 
@@ -20,17 +20,18 @@ struct transportCfg {
     uint8_t sink2;
 };
 
+transportCfg cfg;
+
 TrueMIDI_SinkSource* transportInterfaces[] = {
     &Control_Surface,
     &USB_MIDI,
-    &BLE_MIDI,
+    &USB_MIDI, // BLE Midi is temperarly replaced with USB, as for arduino framework 3.3.7 nimBLE problems.
     &SERIAL_MIDI,
     &DEBUG_MIDI,
 };
 
 void loadCfg() {
     config.begin("midiTransport", true);
-    transportCfg cfg;
     cfg.source1 = config.getUInt("source1", 0); // 1st source, default to Control Surface
     cfg.source2 = config.getUInt("source2", 0); // 2nd source, default to Control Surface
     cfg.sink1 = config.getUInt("sink1", 1); // 1st sink, default to USB
@@ -39,7 +40,6 @@ void loadCfg() {
 }
 
 void saveCfg() {
-    transportCfg cfg;
     config.begin("midiTransport", false);
     config.putUInt("source1", cfg.source1);
     config.putUInt("source2", cfg.source2);
@@ -49,13 +49,11 @@ void saveCfg() {
 }
 
 void applyCfg() {
-    transportCfg cfg;
     *transportInterfaces[cfg.source1] | pipes | *transportInterfaces[cfg.sink1];
     *transportInterfaces[cfg.source2] | pipes | *transportInterfaces[cfg.sink2];
 }
 
 void saveConfByTab(int tabNum, int chosenOption) {
-    transportCfg cfg;
     if (tabNum == 0) {
 	cfg.source1 = chosenOption;
     } else if (tabNum == 1) {
@@ -63,7 +61,7 @@ void saveConfByTab(int tabNum, int chosenOption) {
     } else if (tabNum == 2) {
 	cfg.source2 = chosenOption;
     } else if (tabNum == 3) {
-	cfg.sink1 = chosenOption;
+	cfg.sink2 = chosenOption;
     }
     saveCfg();
 }

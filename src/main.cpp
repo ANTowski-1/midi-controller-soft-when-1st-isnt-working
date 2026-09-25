@@ -73,6 +73,7 @@ void potBtnUpdate(bool force) {
 }
 
 void setup() {
+    Serial.printf("free heap: %u, largest block: %u\n", ESP.getFreeHeap(), ESP.getMaxAllocHeap());
     Wire.begin(47, 48);
     Serial.begin(9600);
     Serial1.begin(MIDI_BAUD, SERIAL_8N1, 42, 41);
@@ -96,7 +97,7 @@ void loop() {
         potBtnUpdate(false);
     } // Display Update
 
-    if (lastConfBtnCheck - millis() >= 100) {
+    if (millis() - lastConfBtnCheck >= 100) {
         currentConfBtnState = digitalRead(BTN_ENC2);
         if (digitalRead(BTN_ENC2) == 0 && currentConfBtnState != lastConfBtnState) {
             enc[1].setSpeedMultiply(1);

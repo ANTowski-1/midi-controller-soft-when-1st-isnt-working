@@ -146,7 +146,7 @@ void settings(){
     lastEncValue = csGetEncVal(0);
     while(true){
         Control_Surface.loop();
-        if (lastEncCheck - millis() >= 10){
+        if (millis() - lastEncCheck >= 10){
             if (lastEncValue < csGetEncVal(1)) {
                 if (chosenOption < 5) {
                     chosenOption++;
@@ -221,7 +221,7 @@ void menuTab(int tabNum){
         delay(500);
         while(true){
             Control_Surface.loop();
-            if (lastEncCheck - millis() >= 10){
+            if (millis() - lastEncCheck >= 10){
                 if (lastEncValue > csGetEncVal(1)) {
                     if (chosenOption < 4) {
                         chosenOption++;
