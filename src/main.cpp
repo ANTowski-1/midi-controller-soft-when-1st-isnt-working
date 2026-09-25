@@ -79,9 +79,9 @@ void setup() {
     delay(200);
     Control_Surface.begin();
     pinMode(BTN_ENC2, INPUT);
-    // pinMode(BTN3, INPUT_PULLUP);
-    // pinMode(MBTN1, INPUT_PULLUP);
     configBank.select(0);
+    loadCfg();
+    applyCfg();
 
     tft_init();
     potBtnUpdate(true);

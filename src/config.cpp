@@ -6,7 +6,7 @@ Preferences config;
 
 // Lib setup
 extern USBMIDI_Interface USB_MIDI;
-extern HardwareSerialMIDI_Interface SERIAL_MIDI(Serial1, MIDI_BAUD);
+extern HardwareSerialMIDI_Interface SERIAL_MIDI;
 // ?HardwareSerialDebugMIDI_Interface DEBUG_MIDI(Serial, 9600);
 extern USBDebugMIDI_Interface DEBUG_MIDI;
 extern BluetoothMIDI_Interface BLE_MIDI;
@@ -38,7 +38,8 @@ void loadCfg() {
     config.end();
 }
 
-void saveCfg(transportCfg cfg) {
+void saveCfg() {
+    transportCfg cfg;
     config.begin("midiTransport", false);
     config.putUInt("source1", cfg.source1);
     config.putUInt("source2", cfg.source2);
@@ -47,7 +48,8 @@ void saveCfg(transportCfg cfg) {
     config.end(); 
 }
 
-void applyCfg(transportCfg cfg) {
+void applyCfg() {
+    transportCfg cfg;
     *transportInterfaces[cfg.source1] | pipes | *transportInterfaces[cfg.sink1];
     *transportInterfaces[cfg.source2] | pipes | *transportInterfaces[cfg.sink2];
 }
@@ -63,5 +65,5 @@ void saveConfByTab(int tabNum, int chosenOption) {
     } else if (tabNum == 3) {
 	cfg.sink1 = chosenOption;
     }
-    saveCfg(cfg);
+    saveCfg();
 }

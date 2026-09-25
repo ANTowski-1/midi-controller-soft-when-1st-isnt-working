@@ -10,6 +10,7 @@
             "includePath": [
                 "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/include",
                 "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/src",
+                "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src",
                 "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/libdeps/esp32-s3-devkitc1-n4r8/bb_spi_lcd/src",
                 "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/libdeps/esp32-s3-devkitc1-n4r8/Control Surface/src",
@@ -381,7 +382,6 @@
                 "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/NetworkClientSecure/src",
                 "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/OpenThread/src",
                 "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/PPP/src",
-                "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src",
                 "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/RainMaker/src",
                 "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/SD/src",
                 "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/SD_MMC/src",
@@ -401,6 +401,7 @@
                 "path": [
                     "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/include",
                     "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/src",
+                    "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src",
                     "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/libdeps/esp32-s3-devkitc1-n4r8/bb_spi_lcd/src",
                     "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     "/home/anton/Documents/PlatformIO/Projects/TEST_ESP32_S3_MIDI_PCB/.pio/libdeps/esp32-s3-devkitc1-n4r8/Control Surface/src",
@@ -772,7 +773,6 @@
                     "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/NetworkClientSecure/src",
                     "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/OpenThread/src",
                     "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/PPP/src",
-                    "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/Preferences/src",
                     "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/RainMaker/src",
                     "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/SD/src",
                     "/home/anton/.platformio/packages/framework-arduinoespressif32/libraries/SD_MMC/src",

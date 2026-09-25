@@ -15,8 +15,10 @@ extern void settings();
 extern void encDisplay(int encNum, int encVal);
 extern void menuTab(int tabNum);
 
+// Config Variables
+
 // Config Functions
 extern void loadCfg();
-extern void saveCfg(transportCfg cfg);
-extern void applyCfg(transportCfg cfg);
+extern void saveCfg();
+extern void applyCfg();
 extern void saveConfByTab(int tabNum, int chosenOption);
