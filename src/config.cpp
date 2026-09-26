@@ -23,7 +23,7 @@ struct transportCfg {
 transportCfg cfg;
 
 TrueMIDI_SinkSource* transportInterfaces[] = {
-    &Control_Surface,
+    nullptr, // slot 0 added at runtime
     &USB_MIDI,
     &USB_MIDI, // BLE Midi is temperarly replaced with USB, as for arduino framework 3.3.7 nimBLE problems.
     &SERIAL_MIDI,
@@ -35,7 +35,8 @@ void loadCfg() {
     cfg.source1 = config.getUInt("source1", 0); // 1st source, default to Control Surface
     cfg.source2 = config.getUInt("source2", 0); // 2nd source, default to Control Surface
     cfg.sink1 = config.getUInt("sink1", 1); // 1st sink, default to USB
-    cfg.sink2 = config.getUInt("sink2", 3); // 2nd sink, default to BLE
+    cfg.sink2 = config.getUInt("sink2", 3); // 2nd sink, default to SERIAL
+    Serial0.printf("cfg: %u %u %u %u\n", cfg.source1, cfg.source2, cfg.sink1, cfg.sink2);
     config.end();
 }
 
@@ -49,8 +50,16 @@ void saveCfg() {
 }
 
 void applyCfg() {
+    Serial0.printf("cfg: s1=%u s2=%u k1=%u k2=%u\n", cfg.source1, cfg.source2, cfg.sink1, cfg.sink2);
+    for (int i = 0; i < 5; i++)
+        Serial0.printf("iface[%d] = %p\n", i, (void*)transportInterfaces[i]);
+    Serial0.flush();
     *transportInterfaces[cfg.source1] | pipes | *transportInterfaces[cfg.sink1];
+    Serial0.println("Conn 1 OK");
+    Serial0.flush();
     *transportInterfaces[cfg.source2] | pipes | *transportInterfaces[cfg.sink2];
+    Serial0.println("Conn 2 OK");
+    Serial0.flush();
 }
 
 void saveConfByTab(int tabNum, int chosenOption) {
@@ -64,4 +73,8 @@ void saveConfByTab(int tabNum, int chosenOption) {
 	cfg.sink2 = chosenOption;
     }
     saveCfg();
+}
+
+void loadCSToTransIntStruct() {
+    transportInterfaces[0] = &Control_Surface;
 }

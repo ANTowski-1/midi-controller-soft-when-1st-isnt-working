@@ -22,3 +22,4 @@ extern void loadCfg();
 extern void saveCfg();
 extern void applyCfg();
 extern void saveConfByTab(int tabNum, int chosenOption);
+extern void loadCSToTransIntStruct();

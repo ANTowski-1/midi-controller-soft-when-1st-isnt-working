@@ -154,7 +154,6 @@ void settings(){
                     chosenOption = 0;
                 }
                 lastEncValue = csGetEncVal(1);
-                Serial.println(lastEncValue);
                 int yPosition = 55 + 30 * chosenOption;
                 int lastYPosition = 55 + 30 * lastChosenOption;
                 lcd.fillRect(45, lastYPosition, 10, 10, LCD_BG);
@@ -167,7 +166,6 @@ void settings(){
                     chosenOption = 5;
                 }
                 lastEncValue = csGetEncVal(1);
-                Serial.println(lastEncValue);
                 int yPosition = 55 + 30 * chosenOption;
                 int lastYPosition = 55 + 30 * lastChosenOption;
                 lcd.fillRect(45, lastYPosition, 10, 10, LCD_BG);
@@ -229,7 +227,6 @@ void menuTab(int tabNum){
                         chosenOption = 0;
                     }
                     lastEncValue = csGetEncVal(1);
-                    Serial.println(lastEncValue);
                     int yPosition = 55 + 35 * chosenOption;
                     int lastYPosition = 55 + 35 * lastChosenOption;
                     lcd.fillRect(45, lastYPosition, 10, 10, LCD_BG);
@@ -242,16 +239,15 @@ void menuTab(int tabNum){
                         chosenOption = 4;
                     }
                     lastEncValue = csGetEncVal(1);
-                    Serial.println(lastEncValue);
                     int yPosition = 55 + 35 * chosenOption;
                     int lastYPosition = 55 + 35 * lastChosenOption;
                     lcd.fillRect(45, lastYPosition, 10, 10, LCD_BG);
                     lcd.fillRect(45, yPosition, 10, 10, LCD_2TXT);
                     lastChosenOption = chosenOption;
-                } else if (digitalRead(BTN_ENC2) == 0){
+                } else if (digitalRead(BTN_ENC2) == 1){
 		            saveConfByTab(tabNum, chosenOption);
-                    applyCfg();
-                    // todo: add callback to preferences.h (functions in config.cpp)
+                    ESP.restart();
+                    // todo: add correct dynamic rerouting functions
                     return;
                 }   // If
                 lastEncCheck = millis();

@@ -73,22 +73,27 @@ void potBtnUpdate(bool force) {
 }
 
 void setup() {
-    Serial.printf("free heap: %u, largest block: %u\n", ESP.getFreeHeap(), ESP.getMaxAllocHeap());
     Wire.begin(47, 48);
-    Serial.begin(9600);
+    Serial0.begin(115200);
     Serial1.begin(MIDI_BAUD, SERIAL_8N1, 42, 41);
     delay(200);
-    Control_Surface.begin();
-    pinMode(BTN_ENC2, INPUT);
-    configBank.select(0);
+    loadCSToTransIntStruct();
     loadCfg();
     applyCfg();
+    Control_Surface.begin();
+    // debug why it doesn't send any messeges to midi channels although the pipes seem to have connected succesfully
+    Serial0.println("CS Begun");
+    Serial0.flush();
+    pinMode(BTN_ENC2, INPUT);
+    configBank.select(0);
+
 
     tft_init();
     potBtnUpdate(true);
     lastDispUpdate = millis();
     lastConfBtnCheck = millis();
-    Serial.println("Setup complete");
+    Serial0.println("Setup complete");
+    Serial0.flush();
 }
 
 void loop() {
@@ -97,9 +102,10 @@ void loop() {
         potBtnUpdate(false);
     } // Display Update
 
-    if (millis() - lastConfBtnCheck >= 100) {
+    if (lastConfBtnCheck - millis() >= 100) {
         currentConfBtnState = digitalRead(BTN_ENC2);
-        if (digitalRead(BTN_ENC2) == 0 && currentConfBtnState != lastConfBtnState) {
+        if (digitalRead(BTN_ENC2) == 1 && currentConfBtnState != lastConfBtnState) {
+            // todo: debug why it is automaticly opening settings after startap when digitalread(enc2_btn) == 0
             enc[1].setSpeedMultiply(1);
             settings();
             lcdClear();
