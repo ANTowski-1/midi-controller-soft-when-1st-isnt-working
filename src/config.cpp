@@ -7,11 +7,12 @@ Preferences config;
 // Lib setup
 extern USBMIDI_Interface USB_MIDI;
 extern HardwareSerialMIDI_Interface SERIAL_MIDI;
-// ?HardwareSerialDebugMIDI_Interface DEBUG_MIDI(Serial, 9600);
-extern USBDebugMIDI_Interface DEBUG_MIDI;
-// extern BluetoothMIDI_Interface BLE_MIDI;
+extern HardwareSerialDebugMIDI_Interface DEBUG_MIDI;
+// extern USBDebugMIDI_Interface DEBUG_MIDI;
+//extern BluetoothMIDI_Interface BLE_MIDI;
 
 extern BidirectionalMIDI_PipeFactory<2> pipes;
+extern MIDI_Pipe pipe_tx1;
 
 struct transportCfg {
     uint8_t source1;
@@ -22,10 +23,10 @@ struct transportCfg {
 
 transportCfg cfg;
 
-TrueMIDI_SinkSource* transportInterfaces[] = {
-    nullptr, // slot 0 added at runtime
+TrueMIDI_SinkSource *transportInterfaces[] = {
+    nullptr, // slot 0 (Control_Surface) added at runtime
     &USB_MIDI,
-    &USB_MIDI, // BLE Midi is temperarly replaced with USB, as for arduino framework 3.3.7 nimBLE problems.
+    nullptr, // BLE Midi is temperarly deleted, as for arduino framework 3.3.7 nimBLE problems.
     &SERIAL_MIDI,
     &DEBUG_MIDI,
 };
@@ -50,16 +51,27 @@ void saveCfg() {
 }
 
 void applyCfg() {
-    Serial0.printf("cfg: s1=%u s2=%u k1=%u k2=%u\n", cfg.source1, cfg.source2, cfg.sink1, cfg.sink2);
+    Serial0.print("cfg: ");
+    Serial0.print(cfg.source1);
+    Serial0.print(cfg.source2);
+    Serial0.print(cfg.sink1);
+    Serial0.println(cfg.sink2);
     for (int i = 0; i < 5; i++)
         Serial0.printf("iface[%d] = %p\n", i, (void*)transportInterfaces[i]);
     Serial0.flush();
     *transportInterfaces[cfg.source1] | pipes | *transportInterfaces[cfg.sink1];
     Serial0.println("Conn 1 OK");
+    Serial0.print("USB has Sink Source pipe: ");
+    Serial0.print(USB_MIDI.hasSinkPipe());
+    Serial0.println(USB_MIDI.hasSourcePipe());
     Serial0.flush();
-    *transportInterfaces[cfg.source2] | pipes | *transportInterfaces[cfg.sink2];
+     *transportInterfaces[cfg.source2] | pipes  | *transportInterfaces[cfg.sink2];
     Serial0.println("Conn 2 OK");
+    Serial0.print("Serial has Sink Source pipe: ");
+    Serial0.print(SERIAL_MIDI.hasSinkPipe());
+    Serial0.println(SERIAL_MIDI.hasSourcePipe());
     Serial0.flush();
+    Serial0.println("All pipes connected");
 }
 
 void saveConfByTab(int tabNum, int chosenOption) {
